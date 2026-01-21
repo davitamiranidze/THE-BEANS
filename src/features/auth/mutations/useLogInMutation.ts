@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabaseClient";
 import type { LoginFormData } from "../schemas/login.schema";
 import { useNavigate } from "react-router-dom";
-import { showToast } from "@/components/ui/CustomToast";
+import toast from "react-hot-toast";
 
 export function useLoginMutation() {
   const navigate = useNavigate();
@@ -20,25 +20,25 @@ export function useLoginMutation() {
     },
 
     onSuccess: () => {
-      showToast("Welcome back 👋", "success");
+      toast.success("Welcome back 👋");
       navigate("/", { replace: true });
     },
 
-    onError: (error: any) => {
+    onError: (error: Error) => {
       const msg = (error?.message || "").toLowerCase();
 
       if (msg.includes("email not confirmed")) {
-        showToast("Please verify your email before logging in.", "info");
+        toast.error("Please verify your email before logging in.");
         navigate("/verify-email");
         return;
       }
 
       if (msg.includes("invalid login credentials")) {
-        showToast("Invalid email or password.", "error");
+        toast.error("Invalid email or password.");
         return;
       }
 
-      showToast(error?.message || "Login failed", "error");
+      toast.error(error?.message || "Login failed");
     },
   });
 }

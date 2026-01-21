@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabaseClient";
 import type { SignUpFormData } from "../schemas/signup.schema";
 import { useNavigate } from "react-router-dom";
-import { showToast } from "@/components/ui/CustomToast";
+import toast from "react-hot-toast";
 
 export function useSignUpMutation() {
   const navigate = useNavigate();
@@ -22,9 +22,8 @@ export function useSignUpMutation() {
     },
 
     onSuccess: (_data, form) => {
-      showToast(
+      toast.success(
         "If an account exists for this email,please log in. Otherwise check your email for verification",
-        "success"
       );
 
       navigate("/verify-email", {

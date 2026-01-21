@@ -21,6 +21,9 @@ export default function AuthCallbackPage() {
       toast.success("Email verified! You can now log in", { duration: 4000 });
       navigate("/login", { replace: true });
     },
+    onError: () => {
+      toast.error("something went wrong");
+    },
   });
 
   useEffect(() => {

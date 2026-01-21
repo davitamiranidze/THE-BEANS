@@ -8,7 +8,7 @@ import AuthLayout from "@/components/layout/AuthLayout";
 import SignUpPage from "@/features/auth/pages/SignUpPage/SignUpPage";
 import LoginPage from "@/features/auth/pages/LoginPage/LoginPage";
 import VerifyEmailPage from "@/features/auth/pages/VerifyEmailPage/VerifyEmailPage";
-import AuthCallback from "@/features/auth/pages/AuthCallback";
+import AuthCallbackPage from "@/features/auth/pages/AuthCallbackPage";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       { path: "/signup", element: <SignUpPage /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/verify-email", element: <VerifyEmailPage /> },
-      { path: "/auth/callback", element: <AuthCallback /> },
+      { path: "/auth/callback", element: <AuthCallbackPage /> },
     ],
   },
 

@@ -1,9 +1,8 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { NAV_LINKS } from "@/config/navigation";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Link } from "react-router-dom";
 
 export default function MobileSidebar() {
   return (
@@ -40,15 +39,17 @@ export default function MobileSidebar() {
               </h1>
             </Link>
           </Dialog.Close>
+          <div className="my-2 h-px bg-black/10"> </div>
           <nav>
             <ul className="space-y-6 text-lg">
               {NAV_LINKS.map((item) => (
-                <li key={item.label}>
+                <li key={item.label} className="flex">
                   <Dialog.Close asChild>
                     <NavLink
                       to={item.to}
                       className={({ isActive }) =>
-                        isActive ? "font-semibold underline" : "opacity-80"
+                        `block hover:bg-black/5 rounded-2xl px-4 py-2 w-full transition
+     ${isActive ? "font-semibold underline" : "opacity-80"}`
                       }
                     >
                       {item.label}
