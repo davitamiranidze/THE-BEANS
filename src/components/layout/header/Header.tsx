@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { NAV_LINKS } from "../../../config/navigation";
 import MobileSidebar from "./MobileSidebar";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 import UserMenu from "./UserMenu";
 
 export default function Header() {

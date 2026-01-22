@@ -1,12 +1,12 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import { useLogout } from "@/hooks/useLogout";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import useLogoutMutation from "@/features/auth/mutations/useLogoutMutation";
 
 export default function UserMenuMobile() {
   const { user, loading } = useAuth();
-  const logout = useLogout();
+  const logout = useLogoutMutation();
 
   if (loading || !user) return null;
 

@@ -1,27 +1,16 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "@/lib/supabaseClient";
-import { useAuth } from "@/hooks/useAuth";
-import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import useLogoutMutation from "@/features/auth/mutations/useLogoutMutation";
 
 export default function UserMenuDesktop() {
-  const navigate = useNavigate();
   const { user, loading } = useAuth();
+  const logout = useLogoutMutation();
 
   if (loading || !user) return null;
 
   const email = user.email ?? "Account";
   const initial = (email[0] ?? "U").toUpperCase();
-
-  const logout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      toast.error(error.message || "Logout failed");
-      return;
-    }
-    toast("Logged out");
-    navigate("/login");
-  };
 
   return (
     <DropdownMenu.Root>
@@ -103,8 +92,8 @@ export default function UserMenuDesktop() {
           {/* LOG OUT */}
           <DropdownMenu.Item
             onSelect={(e) => {
-              e.preventDefault(); // Radix closes by default anyway; also prevents weirdness
-              logout();
+              e.preventDefault();
+              logout.mutate();
             }}
             className="
               flex items-center gap-2

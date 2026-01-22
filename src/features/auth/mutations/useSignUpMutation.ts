@@ -24,12 +24,16 @@ export function useSignUpMutation() {
     onSuccess: (_data, form) => {
       toast.success(
         "If an account exists for this email,please log in. Otherwise check your email for verification",
+        { duration: 10000 },
       );
 
       navigate("/verify-email", {
         state: { email: form.email },
         replace: true,
       });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Sign up failed");
     },
   });
 }

@@ -1,43 +1,38 @@
-import { supabase } from "@/lib/supabaseClient";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useResendSignupEmailMutation } from "@/features/auth/mutations/useResendSignupEmailMutation";
 
 export default function VerifyEmailPage() {
   const location = useLocation();
   const email = location.state?.email as string | undefined;
 
-  const [sending, setSending] = useState(false);
   const [cooldown, setCooldown] = useState(0);
 
+  const resendMutation = useResendSignupEmailMutation();
+
   const resendEmail = async () => {
-    if (!email || cooldown > 0 || sending) return;
+    if (!email || cooldown > 0 || resendMutation.isPending) return;
 
-    setSending(true);
-
-    const { error } = await supabase.auth.resend({
-      type: "signup",
-      email,
-    });
-
-    setSending(false);
-
-    if (error) {
-      toast.error(error.message || "Something went wrong");
-      return;
+    try {
+      await resendMutation.mutateAsync(email);
+      toast.success("Email sent successfully", { duration: 4000 });
+      setCooldown(60);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("Something went wrong");
+      }
     }
-
-    toast.success("Email sent successfully", { duration: 4000 });
-    setCooldown(60);
   };
 
   useEffect(() => {
     if (cooldown <= 0) return;
-
-    const timer = setInterval(() => {
-      setCooldown((prev) => Math.max(0, prev - 1));
-    }, 1000);
-
+    const timer = setInterval(
+      () => setCooldown((p) => Math.max(0, p - 1)),
+      1000,
+    );
     return () => clearInterval(timer);
   }, [cooldown]);
 
@@ -63,18 +58,18 @@ export default function VerifyEmailPage() {
 
       <button
         onClick={resendEmail}
-        disabled={!email || sending || cooldown > 0}
+        disabled={!email || resendMutation.isPending || cooldown > 0}
         className="
           w-full rounded-full border border-[#D6F2C2]/40 py-3
           transition hover:bg-[#D6F2C2]/10
           disabled:opacity-60 disabled:cursor-not-allowed
         "
       >
-        {sending
+        {resendMutation.isPending
           ? "Sending..."
           : cooldown > 0
-          ? `Resend email (${cooldown}s)`
-          : "Resend email"}
+            ? `Resend email (${cooldown}s)`
+            : "Resend email"}
       </button>
 
       <Link

@@ -82,7 +82,6 @@ export default function SignUpPage() {
           rounded-full border border-[#D6F2C2]/40
           py-3 text-[#D6F2C2]
           transition hover:bg-[#D6F2C2]/10"
-          // onClick={() => signInWithGoogle()} // you’ll add this
         >
           <FaGoogle className="text-lg" />
           <span className="text-sm tracking-wide">Continue with Google</span>

@@ -3,9 +3,12 @@ import { supabase } from "@/lib/supabaseClient";
 import type { LoginFormData } from "../schemas/login.schema";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import { authKeys } from "../authKeys";
 
 export function useLoginMutation() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (form: LoginFormData) => {
@@ -19,7 +22,8 @@ export function useLoginMutation() {
       return data;
     },
 
-    onSuccess: () => {
+    onSuccess: (data) => {
+      queryClient.setQueryData(authKeys.session, data.session);
       toast.success("Welcome back 👋");
       navigate("/", { replace: true });
     },
@@ -29,7 +33,7 @@ export function useLoginMutation() {
 
       if (msg.includes("email not confirmed")) {
         toast.error("Please verify your email before logging in.");
-        navigate("/verify-email");
+        navigate("/verify-email", { replace: true });
         return;
       }
 
