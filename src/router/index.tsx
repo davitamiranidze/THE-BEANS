@@ -3,12 +3,11 @@ import HomePage from "../pages/HomePage/HomePage";
 import MainLayout from "@/components/layout/MainLayout";
 import ShopPage from "../pages/ShopPage/ShopPage";
 import NotFound from "../pages/NotFoundPage/NotFoundPage";
-
 import AuthLayout from "@/components/layout/AuthLayout";
 import SignUpPage from "@/features/auth/pages/SignUpPage/SignUpPage";
 import LoginPage from "@/features/auth/pages/LoginPage/LoginPage";
 import VerifyEmailPage from "@/features/auth/pages/VerifyEmailPage/VerifyEmailPage";
-import AuthCallbackPage from "@/features/auth/pages/AuthCallbackPage";
+import AuthCallbackPage from "@/features/auth/pages/AuthCallbackPage/AuthCallbackPage";
 
 export const router = createBrowserRouter([
   {
