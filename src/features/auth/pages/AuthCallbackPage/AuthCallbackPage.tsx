@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useAuthCallbackMutation } from "../mutations/useAuthCallbackMutation";
+import { useAuthCallbackMutation } from "../../mutations/useAuthCallbackMutation";
 
 export default function AuthCallbackPage() {
   const ranRef = useRef(false);
