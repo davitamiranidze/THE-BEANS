@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
-import { useLoginMutation } from "../../mutations/useLoginMutation";
+import { useLoginMutation } from "../../mutations/useLoginMutation.ts";
 import {
   loginSchema,
   type LoginFormData,
