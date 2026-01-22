@@ -1,11 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
-import { FiShoppingCart } from "react-icons/fi";
 import { NAV_LINKS } from "../../../config/navigation";
 import MobileSidebar from "./MobileSidebar";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import UserMenu from "./UserMenu";
+import { useMediaQuery } from "react-responsive";
+import ShoppingCartSidebar from "./ShoppingCartSidebar";
+import clsx from "clsx";
 
 export default function Header() {
+  const isDesktop = useMediaQuery({ minWidth: 768 });
   const { user } = useAuth();
   return (
     <header className="w-full">
@@ -26,9 +29,10 @@ export default function Header() {
                   <NavLink
                     to={link.to}
                     className={({ isActive }) =>
-                      `hover:underline ${
-                        isActive ? "underline font-medium" : ""
-                      }`
+                      clsx(
+                        "text-sm transition hover:underline underline-offset-4",
+                        isActive && "underline font-medium",
+                      )
                     }
                   >
                     {link.label}
@@ -48,12 +52,7 @@ export default function Header() {
               </Link>
             )}
 
-            <button className="hidden md:flex h-10 w-10 items-center justify-center rounded-full bg-black text-white">
-              <FiShoppingCart className="text-md" />
-            </button>
-            <div className="auto md:hidden">
-              <MobileSidebar />
-            </div>
+            {isDesktop ? <ShoppingCartSidebar /> : <MobileSidebar />}
           </div>
         </div>
       </div>

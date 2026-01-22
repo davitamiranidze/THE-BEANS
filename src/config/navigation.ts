@@ -8,3 +8,5 @@ export const NAV_LINKS: NavLinkItem[] = [
   { label: "Wholesale", to: "/wholesale" },
   { label: "Contact", to: "/contact" },
 ];
+
+export const MOBILE_ONLY_LINKS = [{ label: "Cart", to: "/cart" }];

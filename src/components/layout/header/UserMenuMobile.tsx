@@ -1,55 +1,39 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { Link } from "react-router-dom";
 import { useAuth } from "@/features/auth/hooks/useAuth";
+import { Drawer } from "vaul";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { Link } from "react-router-dom";
 import useLogoutMutation from "@/features/auth/mutations/useLogoutMutation";
 
 export default function UserMenuMobile() {
-  const { user, loading } = useAuth();
   const logout = useLogoutMutation();
-
+  const { user, loading } = useAuth();
   if (loading || !user) return null;
 
   const email = user.email ?? "Account";
   const initial = (email[0] ?? "U").toUpperCase();
-
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>
-        <button
-          className="
-            h-10 w-10 rounded-full
+    <Drawer.Root>
+      <Drawer.Trigger
+        className="h-9 w-9 rounded-full
             bg-[#D6F2C2] text-[#17352E]
             grid place-items-center
             text-sm font-semibold
-            border border-black
-          "
-          aria-label="Open user menu"
-        >
-          {initial}
-        </button>
-      </Dialog.Trigger>
-
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/40" />
-
-        {/* Bottom sheet */}
-        <Dialog.Content
-          className="
-            fixed left-0 right-0 bottom-0
-            rounded-t-3xl bg-white
-            border border-black/10 shadow-2xl
-            p-4
-          "
-        >
-          <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-black/15" />
-          <VisuallyHidden>
-            <Dialog.Title>Navigation menu</Dialog.Title>
-            <Dialog.Description>
-              Use the links below to logout and access to account settings
-            </Dialog.Description>
-          </VisuallyHidden>
-          <div className="px-1 py-2">
+            hover:opacity-90 transition
+            outline-none
+            border border-black"
+      >
+        {initial}
+      </Drawer.Trigger>
+      <Drawer.Portal>
+        <VisuallyHidden>
+          <Drawer.Title>Navigation menu</Drawer.Title>
+          <Drawer.Description>
+            Use the links below to logout and access to account settings
+          </Drawer.Description>
+        </VisuallyHidden>
+        <Drawer.Overlay className="fixed inset-0 bg-black/40" />
+        <Drawer.Content className="bg-gray-100 flex flex-col rounded-t-[10px] mt-24 h-fit fixed bottom-0 left-0 right-0 outline-none">
+          <div className="p-4">
             <p className="text-[11px] uppercase tracking-widest text-black/50">
               Signed in as
             </p>
@@ -81,15 +65,15 @@ export default function UserMenuMobile() {
             >
               Log out
             </button>
+            <div className="my-2 h-px bg-black/10"> </div>
           </div>
-
-          <Dialog.Close asChild>
-            <button className="mt-4 w-full rounded-2xl border border-black/10 px-4 py-3 text-sm">
+          <div className="p-4">
+            <Drawer.Close className="mt-4 w-full rounded-2xl border border-black/10 px-4 py-3 text-sm">
               Close
-            </button>
-          </Dialog.Close>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+            </Drawer.Close>
+          </div>
+        </Drawer.Content>
+      </Drawer.Portal>
+    </Drawer.Root>
   );
 }

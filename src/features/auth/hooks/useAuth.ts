@@ -1,8 +1,7 @@
-import { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import type { Session } from "@supabase/supabase-js";
-import { supabase } from "@/lib/supabaseClient";
+import { useQuery } from "@tanstack/react-query";
 import { authKeys } from "../authKeys";
+import { supabase } from "@/lib/supabaseClient";
+import type { Session } from "@supabase/supabase-js";
 
 async function getSession(): Promise<Session | null> {
   const { data, error } = await supabase.auth.getSession();
@@ -11,11 +10,9 @@ async function getSession(): Promise<Session | null> {
 }
 
 export function useAuth() {
-  const queryClient = useQueryClient();
-
   const {
     data: session,
-    isLoading: loading,
+    isLoading,
     error,
   } = useQuery({
     queryKey: authKeys.session,
@@ -25,20 +22,10 @@ export function useAuth() {
     retry: false,
   });
 
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      queryClient.setQueryData(authKeys.session, session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [queryClient]);
-
   return {
     session: session ?? null,
     user: session?.user ?? null,
-    loading,
+    loading: isLoading,
     error,
   };
 }
