@@ -6,7 +6,6 @@ import Field from "@/components/ui/FormField";
 import { Link } from "react-router-dom";
 import { useSignUpMutation } from "../../mutations/useSignUpMutation";
 import PasswordField from "@/components/ui/PasswordField";
-import { motion } from "framer-motion";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 
 export default function SignUpPage() {
