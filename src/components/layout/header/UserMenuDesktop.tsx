@@ -1,7 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import useLogoutMutation from "@/features/auth/mutations/useLogoutMutation";
+import { useLogoutMutation } from "@/features/auth/mutations/useLogoutMutation";
 
 export default function UserMenuDesktop() {
   const { user, loading } = useAuth();

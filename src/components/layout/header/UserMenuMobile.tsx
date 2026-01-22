@@ -2,7 +2,7 @@ import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Drawer } from "vaul";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Link } from "react-router-dom";
-import useLogoutMutation from "@/features/auth/mutations/useLogoutMutation";
+import { useLogoutMutation } from "@/features/auth/mutations/useLogoutMutation";
 
 export default function UserMenuMobile() {
   const logout = useLogoutMutation();
