@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { authKeys } from "../authKeys";
 
-export default function useLoginMutation() {
+export function useLoginMutation() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type LoginFormData, loginSchema } from "../../schemas/login.schema";
-import useLoginMutation from "../../mutations/useLoginMutation";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
+import { useLoginMutation } from "../../mutations/useLoginMutation";
 
 export default function LoginPage() {
   const login = useLoginMutation();
