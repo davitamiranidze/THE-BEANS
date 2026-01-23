@@ -7,9 +7,11 @@ import { Link } from "react-router-dom";
 import { useSignUpMutation } from "../../mutations/useSignUpMutation";
 import PasswordField from "@/components/ui/PasswordField";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
+import { useGoogleLoginMutation } from "../../mutations/useGoogleLoginMutation";
 
 export default function SignUpPage() {
   const signUp = useSignUpMutation();
+  const googleLogin = useGoogleLoginMutation();
 
   const {
     register,
@@ -78,6 +80,8 @@ export default function SignUpPage() {
           rounded-full border border-[#D6F2C2]/40
           py-3 text-[#D6F2C2]
           transition hover:bg-[#D6F2C2]/10"
+            onClick={() => googleLogin.mutate()}
+            disabled={googleLogin.isPending}
           >
             <FaGoogle className="text-lg" />
             <span className="text-sm tracking-wide">Continue with Google</span>
