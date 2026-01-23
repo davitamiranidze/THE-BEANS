@@ -60,7 +60,7 @@ export default function LoginPage() {
         <div className="mt-8 text-center text-sm text-[#D6F2C2]/70 flex flex-col md:flex-row justify-center gap-2">
           <p>Forgot password?</p>
           <Link
-            to="/password-reset"
+            to="/forgot-password"
             className="font-medium text-[#D6F2C2] underline underline-offset-4 hover:opacity-80"
           >
             Click here to reset
