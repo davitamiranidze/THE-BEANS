@@ -89,7 +89,7 @@ export default function LoginPage() {
             to="/signup"
             className="font-medium text-[#D6F2C2] underline underline-offset-4 hover:opacity-80"
           >
-            Log In
+            Sign Up
           </Link>
         </div>
       </div>
