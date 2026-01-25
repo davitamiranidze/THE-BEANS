@@ -9,7 +9,7 @@ import LoginPage from "@/features/auth/pages/LoginPage/LoginPage";
 import VerifyEmailPage from "@/features/auth/pages/VerifyEmailPage/VerifyEmailPage";
 import AuthCallbackPage from "@/features/auth/pages/AuthCallbackPage/AuthCallbackPage";
 import ForgotPasswordPage from "@/features/auth/pages/ForgotPasswordPage/ForgotPasswordPage";
-import PasswordResetPage from "@/features/auth/pages/PasswordResetPage/PasswordResetPage";
+import ResetPasswordPage from "@/features/auth/pages/ResetPasswordPage/ResetPasswordPage";
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
       { path: "/login", element: <LoginPage /> },
       { path: "/verify-email", element: <VerifyEmailPage /> },
       { path: "/auth/callback", element: <AuthCallbackPage /> },
-      { path: "/password-reset", element: <PasswordResetPage /> },
+      { path: "/reset-password", element: <ResetPasswordPage /> },
       { path: "/forgot-password", element: <ForgotPasswordPage /> },
     ],
   },

@@ -10,20 +10,38 @@ export function useAuthCallbackMutation() {
 
   return useMutation({
     mutationFn: async () => {
+      const hash = new URLSearchParams(window.location.hash.slice(1));
+      const search = new URLSearchParams(window.location.search);
+
+      const type = hash.get("type") ?? search.get("type");
+
       const { data, error } = await supabase.auth.getSession();
       if (error) throw error;
-      return data.session;
+
+      return { session: data.session, type };
     },
-    onSuccess: (session) => {
+
+    onSuccess: ({ session, type }) => {
+      // 1️⃣ Password recovery flow
+      if (type === "recovery") {
+        toast.success("You can now reset your password");
+        navigate("/reset-password", { replace: true });
+        return;
+      }
+
+      // 2️⃣ Google OAuth → already logged in
       if (session) {
         queryClient.setQueryData(authKeys.session, session);
-        toast.success("Email verified! You can now log in", { duration: 4000 });
-      } else {
-        // sometimes callback doesn’t give a session; user can just log in
-        toast.success("You can now log in", { duration: 3000 });
+        toast.success("Logged in successfully");
+        navigate("/", { replace: true });
+        return;
       }
+
+      // 3️⃣ Email signup confirm → go login
+      toast.success("Email verified! You can now log in");
       navigate("/login", { replace: true });
     },
+
     onError: () => {
       toast.error("Something went wrong");
       navigate("/login", { replace: true });

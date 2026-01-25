@@ -1,4 +1,4 @@
-export default function PasswordResetPage()
+export default function ResetPasswordPage()
 {
     return(
         <>password reset page</>
