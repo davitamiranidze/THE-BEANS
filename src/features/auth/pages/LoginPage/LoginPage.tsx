@@ -9,9 +9,12 @@ import {
   loginSchema,
   type LoginFormData,
 } from "@/features/auth/schemas/login.schema";
+import { useGoogleLoginMutation } from "../../mutations/useGoogleLoginMutation";
+import { FaGoogle } from "react-icons/fa";
 
 export default function LoginPage() {
   const login = useLoginMutation();
+  const googleLogin = useGoogleLoginMutation();
   const {
     register,
     handleSubmit,
@@ -57,6 +60,20 @@ export default function LoginPage() {
             {login.isPending ? "Logging In" : "Submit"}
           </button>
         </form>
+        <div className="mt-10">
+          <button
+            type="button"
+            className="w-full flex items-center justify-center gap-3
+                  rounded-full border border-[#D6F2C2]/40
+                  py-3 text-[#D6F2C2]
+                  transition hover:bg-[#D6F2C2]/10"
+            onClick={() => googleLogin.mutate()}
+            disabled={googleLogin.isPending}
+          >
+            <FaGoogle className="text-lg" />
+            <span className="text-sm tracking-wide">Log in with Google</span>
+          </button>
+        </div>
         <div className="mt-8 text-center text-sm text-[#D6F2C2]/70 flex flex-col md:flex-row justify-center gap-2">
           <p>Forgot password?</p>
           <Link
@@ -72,7 +89,7 @@ export default function LoginPage() {
             to="/signup"
             className="font-medium text-[#D6F2C2] underline underline-offset-4 hover:opacity-80"
           >
-            Sign Up
+            Log In
           </Link>
         </div>
       </div>
