@@ -10,7 +10,6 @@ import {
 export default function ResetPasswordPage() {
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid },
   } = useForm<resetPasswordFormData>({
     resolver: zodResolver(resetPasswordSchema),
