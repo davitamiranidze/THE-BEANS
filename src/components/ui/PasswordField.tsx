@@ -38,7 +38,7 @@ export default function PasswordField({
           "
           aria-label={visible ? "Hide password" : "Show password"}
         >
-          {visible ? <FiEyeOff /> : <FiEye />}
+          {visible ? <FiEye /> : <FiEyeOff />}
         </button>
       </div>
 

@@ -2,9 +2,9 @@ import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import Field from "@/components/ui/FormField";
 import { useForm } from "react-hook-form";
 import {
-  passwordResetSchema,
-  type PasswordResetFormData,
-} from "../../schemas/passwordReset.schema";
+  forgotPasswordSchema,
+  type forgotPasswordFormData,
+} from "../../schemas/forgotPassword.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForgotPasswordMutation } from "../../mutations/useForgotPasswordMutation";
 import { useState } from "react";
@@ -17,12 +17,12 @@ export default function ForgotPasswordPage() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<PasswordResetFormData>({
-    resolver: zodResolver(passwordResetSchema),
+  } = useForm<forgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordSchema),
     mode: "onChange",
   });
 
-  const onSubmit = (data: PasswordResetFormData) => {
+  const onSubmit = (data: forgotPasswordFormData) => {
     forgotPassword.mutate(data.email, {
       onSuccess: () => setSubmitted(true),
       onError: () => setSubmitted(true),
